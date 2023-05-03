@@ -1,14 +1,15 @@
 package com.ecore.roles.web.dto;
 
-import com.ecore.roles.model.Membership;
-import com.ecore.roles.model.Role;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ecore.roles.model.*;
+import com.fasterxml.jackson.annotation.*;
+import com.github.dozermapper.core.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -22,27 +23,20 @@ import static java.util.Optional.ofNullable;
 @Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class MembershipDto {
+@JsonPropertyOrder({"roleId", "userId", "teamId"})
+public class MembershipDto extends RepresentationModel<MembershipDto> {
+
+    @JsonProperty("id")
+    @Mapping("id")
+    private UUID key;
 
     @JsonProperty
-    private UUID id;
-
-    @JsonProperty
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
     private UUID roleId;
 
-    @JsonProperty(value = "teamMemberId")
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
+    @JsonProperty()
     private UUID userId;
 
     @JsonProperty
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
     private UUID teamId;
 
     public static MembershipDto fromModel(Membership membership) {
@@ -50,8 +44,8 @@ public class MembershipDto {
             return null;
         }
         return MembershipDto.builder()
-                .id(membership.getId())
-                .roleId(ofNullable(membership.getRole()).map(Role::getId).orElse(null))
+                .key(membership.getId())
+                .roleId(membership.getRoleId())
                 .userId(membership.getUserId())
                 .teamId(membership.getTeamId())
                 .build();
@@ -59,8 +53,8 @@ public class MembershipDto {
 
     public Membership toModel() {
         return Membership.builder()
-                .id(this.id)
-                .role(Role.builder().id(this.roleId).build())
+                .id(this.key)
+                .roleId(this.roleId)
                 .userId(this.userId)
                 .teamId(this.teamId)
                 .build();

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface UsersApi {
 
-    ResponseEntity<List<UserDto>> getUsers();
-
-    ResponseEntity<UserDto> getUser(UUID userId);
+//    ResponseEntity<List<UserDto>> getUsers();
+//
+//    ResponseEntity<UserDto> getUser(UUID userId);
 }

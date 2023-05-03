@@ -1,25 +1,24 @@
 package com.ecore.roles.web.dto;
 
-import com.ecore.roles.client.model.Team;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ecore.roles.model.*;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @EqualsAndHashCode
-public class TeamDto {
+@JsonPropertyOrder({"name"})
+public class TeamDto extends RepresentationModel<TeamDto> {
 
     @JsonProperty
     private UUID id;
@@ -31,9 +30,15 @@ public class TeamDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UUID teamLeadId;
 
-    @JsonProperty
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<UUID> teamMemberIds;
+//    @JsonProperty
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    private List<UUID> teamMemberIds;
+
+    public TeamDto(UUID id, String name, UUID teamLeadId){
+        this.id = id;
+        this.name = name;
+        this.teamLeadId = teamLeadId;
+    }
 
     public static TeamDto fromModel(Team team) {
         if (team == null) {
@@ -43,7 +48,15 @@ public class TeamDto {
                 .id(team.getId())
                 .name(team.getName())
                 .teamLeadId(team.getTeamLeadId())
-                .teamMemberIds(team.getTeamMemberIds())
+//                .teamMemberIds(team.getTeamMemberIds())
+                .build();
+    }
+
+    public Team toModel() {
+        return Team.builder()
+                .id(this.id)
+                .name(this.name)
+                .teamLeadId(this.getTeamLeadId())
                 .build();
     }
 }

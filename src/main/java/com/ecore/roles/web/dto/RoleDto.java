@@ -1,13 +1,14 @@
 package com.ecore.roles.web.dto;
 
 import com.ecore.roles.model.Role;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.*;
 
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
@@ -18,7 +19,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class RoleDto {
+@JsonPropertyOrder({"name"})
+public class RoleDto extends RepresentationModel<RoleDto> {
 
     @JsonProperty
     private UUID id;
