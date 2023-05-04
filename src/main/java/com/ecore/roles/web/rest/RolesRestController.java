@@ -43,7 +43,7 @@ public class RolesRestController implements RolesApi {
     )
     public List<MembershipDto> findByUserIdAndTeamId(
             @RequestParam(value = "userId", defaultValue = "") UUID userId,
-            @RequestParam(value = "roleId", defaultValue = "") UUID teamId) {
+            @RequestParam(value = "teamId", defaultValue = "") UUID teamId) {
         return service.findByUserIdAndTeamId(userId, teamId);
     }
 

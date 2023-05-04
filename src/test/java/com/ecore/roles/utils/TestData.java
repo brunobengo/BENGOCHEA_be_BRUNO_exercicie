@@ -87,18 +87,18 @@ public class TestData {
     public static Membership DEFAULT_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .roleId(DEVELOPER_ROLE_UUID)
-                .userId(GIANNI_USER_UUID)
-                .teamId(ORDINARY_CORAL_LYNX_TEAM_UUID)
+                .role(null)
+                .user(null)
+                .team(null)
                 .build();
     }
 
     public static Membership INVALID_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .roleId(DEVELOPER_ROLE_UUID)
-                .userId(UUID_4)
-                .teamId(ORDINARY_CORAL_LYNX_TEAM_UUID)
+                .role(null)
+                .user(null) //UUID_4)
+                .team(null)
                 .build();
     }
 

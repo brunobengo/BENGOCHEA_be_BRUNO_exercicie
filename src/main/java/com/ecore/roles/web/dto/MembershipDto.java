@@ -30,14 +30,15 @@ public class MembershipDto extends RepresentationModel<MembershipDto> {
     @Mapping("id")
     private UUID key;
 
-    @JsonProperty
-    private UUID roleId;
+//    @JsonProperty
+    private Role role;
 
-    @JsonProperty()
-    private UUID userId;
+//    @JsonProperty()
+//    private UUID userId;
+    private User user;
 
-    @JsonProperty
-    private UUID teamId;
+//    @JsonProperty
+    private Team team;
 
     public static MembershipDto fromModel(Membership membership) {
         if (membership == null) {
@@ -45,18 +46,18 @@ public class MembershipDto extends RepresentationModel<MembershipDto> {
         }
         return MembershipDto.builder()
                 .key(membership.getId())
-                .roleId(membership.getRoleId())
-                .userId(membership.getUserId())
-                .teamId(membership.getTeamId())
+                .role(membership.getRole())
+                .user(membership.getUser())
+                .team(membership.getTeam())
                 .build();
     }
 
     public Membership toModel() {
         return Membership.builder()
                 .id(this.key)
-                .roleId(this.roleId)
-                .userId(this.userId)
-                .teamId(this.teamId)
+                .role(this.role)
+                .user(this.user)
+                .team(this.team)
                 .build();
     }
 

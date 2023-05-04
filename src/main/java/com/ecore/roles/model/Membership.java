@@ -24,23 +24,23 @@ public class Membership {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Type(type="uuid-char")
-    @Column(name = "role_id", nullable = false)
-    private UUID roleId;
+    @OneToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @Type(type="uuid-char")
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Type(type="uuid-char")
-    @Column(name = "team_id", nullable = false)
-    private UUID teamId;
+    @OneToOne
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team team;
 
-    public Membership(UUID id, UUID roleId, UUID userId, UUID teamId){
+    public Membership(UUID id, Role role, User user, Team team){
         this.setId(id);
-        this.setRoleId(roleId);
-        this.setUserId(userId);
-        this.setTeamId(teamId);
+        this.setRole(role);
+        this.setUser(user);
+        this.setTeam(team);
     }
 
 }

@@ -75,9 +75,9 @@ public class MembershipsServiceImpl implements MembershipsService {
         logger.info("Updating a Membership!");
         Membership membership = repository.findById(membershipDto.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException(Membership.class, membershipDto.getKey()));
-        membership.setRoleId(membershipDto.getRoleId());
-        membership.setUserId(membershipDto.getUserId());
-        membership.setTeamId(membershipDto.getTeamId());
+        membership.setRole(membershipDto.getRole());
+        membership.setUser(membershipDto.getUser());
+        membership.setTeam(membershipDto.getTeam());
         var dto = MembershipDto.fromModel(repository.save(membership));
         dto.add(linkTo(methodOn(MembershipsRestController.class).findById(membershipDto.getKey())).withSelfRel());
         return dto;

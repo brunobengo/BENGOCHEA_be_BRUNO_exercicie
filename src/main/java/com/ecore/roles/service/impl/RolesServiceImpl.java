@@ -44,6 +44,7 @@ public class RolesServiceImpl implements RolesService {
         for (Membership m: result) {
             listResult.add(MembershipDto.fromModel(m));
         }
+        listResult.stream().forEach(t -> t.add(linkTo(methodOn(MembershipsRestController.class).findById(t.getKey())).withSelfRel()));
         return listResult;
     }
 
