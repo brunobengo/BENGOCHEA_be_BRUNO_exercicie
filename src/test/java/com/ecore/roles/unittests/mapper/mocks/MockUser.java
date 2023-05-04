@@ -8,15 +8,15 @@ import java.util.*;
 public class MockUser {
 
 
-    public User mockEntity() {
+    public static User mockEntity() {
         return mockEntity(0);
     }
 
-    public UserDto mockVO() {
+    public static UserDto mockVO() {
         return mockVO(0);
     }
 
-    public List<User> mockEntityList() {
+    public static List<User> mockEntityList() {
         List<User> users = new ArrayList<User>();
         for (int i = 0; i < 14; i++) {
             users.add(mockEntity(i));
@@ -24,7 +24,7 @@ public class MockUser {
         return users;
     }
 
-    public List<UserDto> mockVOList() {
+    public static List<UserDto> mockVOList() {
         List<UserDto> usersDto = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             usersDto.add(mockVO(i));
@@ -32,7 +32,7 @@ public class MockUser {
         return usersDto;
     }
 
-    public User mockEntity(int number) {
+    public static User mockEntity(int number) {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setFirstName("First Name Test" + number);
@@ -42,7 +42,7 @@ public class MockUser {
         user.setLocation("Location" + number);
         return user;
     }
-    public User mockEntity(UUID uuid) {
+    public static User mockEntity(UUID uuid) {
         User user = new User();
         user.setId(uuid);
         user.setFirstName("First Name Test");
@@ -53,7 +53,7 @@ public class MockUser {
         return user;
     }
 
-    public UserDto mockVO(Integer number) {
+    public static UserDto mockVO(Integer number) {
         UserDto userDto = new UserDto();
         userDto.setFirstName("First Name Test" + number);
         userDto.setLastName("Last Name Test" + number);
@@ -63,7 +63,7 @@ public class MockUser {
         return userDto;
     }
 
-    public UserDto mockVO(UUID uuid) {
+    public static UserDto mockVO(UUID uuid) {
         UserDto userDto = new UserDto();
         userDto.setKey(uuid);
         userDto.setFirstName("First Name Test");

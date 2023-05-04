@@ -5,6 +5,7 @@ import com.ecore.roles.client.model.User;
 import com.ecore.roles.exception.*;
 import com.ecore.roles.model.Membership;
 import com.ecore.roles.model.Role;
+import com.ecore.roles.unittests.mapper.mocks.*;
 import com.ecore.roles.web.dto.*;
 import org.assertj.core.util.Lists;
 
@@ -87,18 +88,18 @@ public class TestData {
     public static Membership DEFAULT_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .role(null)
-                .user(null)
-                .team(null)
+                .role(MockRole.mockEntity())
+                .user(MockUser.mockEntity())
+                .team(MockTeam.mockEntity())
                 .build();
     }
 
     public static Membership INVALID_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .role(null)
-                .user(null) //UUID_4)
-                .team(null)
+                .role(MockRole.mockEntity())
+                .user(MockUser.mockEntity(UUID_4))
+                .team(MockTeam.mockEntity())
                 .build();
     }
 
