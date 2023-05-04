@@ -24,16 +24,16 @@ public class Membership {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "team_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="team_id", nullable=false)
     private Team team;
 
     public Membership(UUID id, Role role, User user, Team team){

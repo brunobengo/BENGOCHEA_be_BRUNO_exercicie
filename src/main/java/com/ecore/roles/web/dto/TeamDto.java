@@ -30,10 +30,6 @@ public class TeamDto extends RepresentationModel<TeamDto> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UUID teamLeadId;
 
-//    @JsonProperty
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    private List<UUID> teamMemberIds;
-
     public TeamDto(UUID id, String name, UUID teamLeadId){
         this.id = id;
         this.name = name;
@@ -48,7 +44,6 @@ public class TeamDto extends RepresentationModel<TeamDto> {
                 .id(team.getId())
                 .name(team.getName())
                 .teamLeadId(team.getTeamLeadId())
-//                .teamMemberIds(team.getTeamMemberIds())
                 .build();
     }
 

@@ -28,5 +28,11 @@ public class Team {
     @Column(nullable = false, unique = true)
     private UUID teamLeadId;
 
+//    @OneToMany(mappedBy="team")
+//    private List<Membership> memberships;
 }
+
+
+
+
 

@@ -13,6 +13,7 @@ import java.util.UUID;
 import com.ecore.roles.model.*;
 import com.ecore.roles.repository.*;
 import com.ecore.roles.service.*;
+import com.ecore.roles.unittests.mapper.mocks.*;
 import com.ecore.roles.web.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
