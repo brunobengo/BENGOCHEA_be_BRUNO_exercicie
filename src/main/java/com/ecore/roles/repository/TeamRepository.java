@@ -7,4 +7,5 @@ import org.springframework.stereotype.*;
 import java.util.*;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team, UUID> {}
+public interface TeamRepository extends JpaRepository<Team, UUID> {
+}

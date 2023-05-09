@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/roles/memberships")
 public class MembershipsRestController implements MembershipsApi {
 
     private final MembershipsService service;
-
 
     @GetMapping(produces = {"application/json"})
     @Operation(summary = "Finds all Memberships", description = "Finds all Memberships",
@@ -29,8 +27,8 @@ public class MembershipsRestController implements MembershipsApi {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = MembershipDto.class))
-                                    )
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = MembershipDto.class)))
 
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -50,8 +48,7 @@ public class MembershipsRestController implements MembershipsApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MembershipDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = MembershipDto.class))),
                     @ApiResponse(description = "No Content", responseCode = "201", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -71,8 +68,7 @@ public class MembershipsRestController implements MembershipsApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MembershipDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = MembershipDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -91,8 +87,7 @@ public class MembershipsRestController implements MembershipsApi {
             responses = {
                     @ApiResponse(
                             description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MembershipDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = MembershipDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -109,8 +104,7 @@ public class MembershipsRestController implements MembershipsApi {
             tags = {"Memberships"},
             responses = {
                     @ApiResponse(
-                            description = "No Content", responseCode = "204", content = @Content
-                    ),
+                            description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -118,7 +112,7 @@ public class MembershipsRestController implements MembershipsApi {
             }
 
     )
-    public ResponseEntity<?> delete(@PathVariable(value = "id") UUID id) {
+        public ResponseEntity<Void> delete(@PathVariable(value = "id") UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

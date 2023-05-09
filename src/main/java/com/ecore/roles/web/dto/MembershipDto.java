@@ -11,11 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
-
-import static java.util.Optional.ofNullable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,14 +26,12 @@ public class MembershipDto extends RepresentationModel<MembershipDto> {
     @Mapping("id")
     private UUID key;
 
-//    @JsonProperty
+    // @JsonProperty
     private Role role;
 
-//    @JsonProperty()
-//    private UUID userId;
     private User user;
 
-//    @JsonProperty
+    // @JsonProperty
     private Team team;
 
     public static MembershipDto fromModel(Membership membership) {

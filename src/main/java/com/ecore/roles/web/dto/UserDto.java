@@ -20,7 +20,7 @@ import java.util.UUID;
 @Builder
 @EqualsAndHashCode
 @JsonPropertyOrder({"firstName", "lastName", "displayName", "avatarUrl", "location"})
-public class UserDto extends RepresentationModel<UserDto>  {
+public class UserDto extends RepresentationModel<UserDto> {
 
     @JsonProperty("id")
     @Mapping("id")

@@ -8,7 +8,6 @@ import java.util.*;
 
 public class MockTeam {
 
-
     public static Team mockEntity() {
         return mockEntity(0);
     }
@@ -39,6 +38,7 @@ public class MockTeam {
         team.setName("Team Test" + number);
         return team;
     }
+
     public static Team mockEntity(UUID uuid) {
         Team team = new Team();
         team.setId(uuid);
@@ -47,7 +47,8 @@ public class MockTeam {
     }
 
     public static TeamDto mockVO(Integer number) {
-        TeamDto teamDto = new TeamDto(TestData.ORDINARY_CORAL_LYNX_TEAM_UUID, "Team Test" + number, TestData.UUID_4);
+        TeamDto teamDto =
+                new TeamDto(TestData.ORDINARY_CORAL_LYNX_TEAM_UUID, "Team Test" + number, TestData.UUID_4);
         return teamDto;
     }
 
@@ -57,4 +58,3 @@ public class MockTeam {
     }
 
 }
-

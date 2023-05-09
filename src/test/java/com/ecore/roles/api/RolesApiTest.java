@@ -1,6 +1,5 @@
 package com.ecore.roles.api;
 
-import com.ecore.roles.model.Membership;
 import com.ecore.roles.model.Role;
 import com.ecore.roles.repository.RoleRepository;
 import com.ecore.roles.utils.RestAssuredHelper;
@@ -34,9 +33,11 @@ import static io.restassured.RestAssured.when;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RolesApiTest {
+class RolesApiTest {
 
     private final RestTemplate restTemplate;
     private final RoleRepository roleRepository;
@@ -75,33 +76,16 @@ public class RolesApiTest {
                 .validate(400, "Bad Request");
     }
 
-//    @Test
-//    void shouldFailToCreateNewRoleWhenMissingName() {
-//        createRole(Role.builder().build())
-//                .validate(400, "Bad Request");
-//    }
-
-//    @Test
-//    void shouldFailToCreateNewRoleWhenBlankName() {
-//        createRole(Role.builder().name("").build())
-//                .validate(400, "Bad Request");
-//    }
-
-//    @Test
-//    void shouldFailToCreateNewRoleWhenNameAlreadyExists() {
-//        createRole(DEVELOPER_ROLE())
-//                .validate(400, "Role already exists");
-//    }
-
     @Test
     void shouldGetAllRoles() {
         RoleDto[] roles = getRoles()
                 .extract().as(RoleDto[].class);
 
-        assertThat(roles.length).isGreaterThanOrEqualTo(3);
-        assertThat(roles).contains(RoleDto.fromModel(DEVELOPER_ROLE()));
-        assertThat(roles).contains(RoleDto.fromModel(PRODUCT_OWNER_ROLE()));
-        assertThat(roles).contains(RoleDto.fromModel(TESTER_ROLE()));
+        assertTrue(roles.length >= 3);
+        assertThat(roles)
+           .contains(RoleDto.fromModel(DEVELOPER_ROLE()))
+        .contains(RoleDto.fromModel(PRODUCT_OWNER_ROLE()))
+            .contains(RoleDto.fromModel(TESTER_ROLE()));
     }
 
     @Test

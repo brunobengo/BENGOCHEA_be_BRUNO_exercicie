@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static com.ecore.roles.web.dto.TeamDto.fromModel;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,7 +19,6 @@ import static com.ecore.roles.web.dto.TeamDto.fromModel;
 public class TeamsRestController implements TeamsApi {
 
     private final TeamsService service;
-
 
     @GetMapping(produces = {"application/json"})
     @Operation(summary = "Finds all Teams", description = "Finds all Teams",
@@ -32,8 +28,8 @@ public class TeamsRestController implements TeamsApi {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = TeamDto.class))
-                                    )
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = TeamDto.class)))
 
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -53,8 +49,7 @@ public class TeamsRestController implements TeamsApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = TeamDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = TeamDto.class))),
                     @ApiResponse(description = "No Content", responseCode = "201", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -74,8 +69,7 @@ public class TeamsRestController implements TeamsApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = TeamDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = TeamDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -94,8 +88,7 @@ public class TeamsRestController implements TeamsApi {
             responses = {
                     @ApiResponse(
                             description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = TeamDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = TeamDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -112,8 +105,7 @@ public class TeamsRestController implements TeamsApi {
             tags = {"Teams"},
             responses = {
                     @ApiResponse(
-                            description = "No Content", responseCode = "204", content = @Content
-                    ),
+                            description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -121,7 +113,7 @@ public class TeamsRestController implements TeamsApi {
             }
 
     )
-    public ResponseEntity<?> delete(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

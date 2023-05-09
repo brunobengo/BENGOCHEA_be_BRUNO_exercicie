@@ -3,11 +3,9 @@ package com.ecore.roles.service.impl;
 import com.ecore.roles.exception.*;
 import com.ecore.roles.model.*;
 import com.ecore.roles.repository.*;
-import com.ecore.roles.service.MembershipsService;
 import com.ecore.roles.service.RolesService;
 import com.ecore.roles.web.dto.*;
 import com.ecore.roles.web.rest.*;
-import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +36,14 @@ public class RolesServiceImpl implements RolesService {
     }
 
     @Override
-    public List<MembershipDto> findByUserIdAndTeamId(UUID userId, UUID teamId){
+    public List<MembershipDto> findByUserIdAndTeamId(UUID userId, UUID teamId) {
         var result = membershipsRepository.findByUserIdAndTeamId(userId, teamId);
         List<MembershipDto> listResult = new ArrayList<>();
-        for (Membership m: result) {
+        for (Membership m : result) {
             listResult.add(MembershipDto.fromModel(m));
         }
-        listResult.stream().forEach(t -> t.add(linkTo(methodOn(MembershipsRestController.class).findById(t.getKey())).withSelfRel()));
+        listResult.stream().forEach(t -> t
+                .add(linkTo(methodOn(MembershipsRestController.class).findById(t.getKey())).withSelfRel()));
         return listResult;
     }
 
@@ -53,13 +52,15 @@ public class RolesServiceImpl implements RolesService {
         List<Role> roles = repository.findAll();
         List<RoleDto> roleDtos = new ArrayList<>();
         roles.forEach(t -> roleDtos.add(RoleDto.fromModel(t)));
-        roleDtos.stream().forEach(t -> t.add(linkTo(methodOn(RolesRestController.class).findById(t.getId())).withSelfRel()));
+        roleDtos.stream().forEach(
+                t -> t.add(linkTo(methodOn(RolesRestController.class).findById(t.getId())).withSelfRel()));
         return roleDtos;
     }
 
     @Override
     public RoleDto findById(UUID roleId) {
-        logger.info("Finding role by id " + roleId);
+        String info = "Finding role by id " + roleId;
+        logger.info(info);
         Role role = repository.findById(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
         RoleDto roleDto = RoleDto.fromModel(role);
@@ -77,7 +78,8 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public RoleDto update(RoleDto roleDto) {
-        if(roleDto == null) throw new RequiredObjectsNullException();
+        if (roleDto == null)
+            throw new RequiredObjectsNullException();
         logger.info("Updating a Role!");
         Role role = repository.findById(roleDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(Role.class, roleDto.getId()));
@@ -90,7 +92,8 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public void delete(UUID roleId) {
-        logger.info("Deleting role with id " + roleId);
+        String info = "Deleting role with id " + roleId;
+        logger.info(info);
         Role role = repository.findById(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
         repository.delete(role);

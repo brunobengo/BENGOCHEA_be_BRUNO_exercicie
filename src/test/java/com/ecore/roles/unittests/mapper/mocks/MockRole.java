@@ -8,7 +8,6 @@ import java.util.*;
 
 public class MockRole {
 
-
     public static Role mockEntity() {
         return mockEntity(0);
     }
@@ -39,6 +38,7 @@ public class MockRole {
         role.setName("Role Test" + number);
         return role;
     }
+
     public static Role mockEntity(UUID uuid) {
         Role role = new Role();
         role.setId(uuid);
@@ -60,4 +60,3 @@ public class MockRole {
     }
 
 }
-

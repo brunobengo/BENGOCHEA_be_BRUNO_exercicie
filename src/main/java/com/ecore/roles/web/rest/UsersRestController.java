@@ -1,6 +1,5 @@
 package com.ecore.roles.web.rest;
 
-import com.ecore.roles.client.*;
 import com.ecore.roles.service.UsersService;
 import com.ecore.roles.web.UsersApi;
 import com.ecore.roles.web.dto.UserDto;
@@ -8,16 +7,11 @@ import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static com.ecore.roles.web.dto.UserDto.fromModel;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,8 +28,8 @@ public class UsersRestController implements UsersApi {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))
-                                    )
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = UserDto.class)))
 
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -55,8 +49,7 @@ public class UsersRestController implements UsersApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = UserDto.class))),
                     @ApiResponse(description = "No Content", responseCode = "201", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -76,8 +69,7 @@ public class UsersRestController implements UsersApi {
             responses = {
                     @ApiResponse(
                             description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = UserDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -96,8 +88,7 @@ public class UsersRestController implements UsersApi {
             responses = {
                     @ApiResponse(
                             description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserDto.class))
-                    ),
+                            content = @Content(schema = @Schema(implementation = UserDto.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -114,8 +105,7 @@ public class UsersRestController implements UsersApi {
             tags = {"Users"},
             responses = {
                     @ApiResponse(
-                            description = "No Content", responseCode = "204", content = @Content
-                    ),
+                            description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -123,7 +113,7 @@ public class UsersRestController implements UsersApi {
             }
 
     )
-    public ResponseEntity<?> delete(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") UUID id) {
         usersService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -22,7 +22,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class TeamsServiceImplTest {
+class TeamsServiceImplTest {
 
     @Mock
     private TeamRepository repository;
@@ -31,12 +31,12 @@ public class TeamsServiceImplTest {
     private TeamsServiceImpl service;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         service = new TeamsServiceImpl(repository);
     }
 
     @Test
-    public void testFindAll() {
+    void testFindAll() {
         List<Team> teams = new ArrayList<>();
         teams.add(new Team(UUID.randomUUID(), "Team 1", UUID.randomUUID()));
         teams.add(new Team(UUID.randomUUID(), "Team 2", UUID.randomUUID()));
@@ -47,12 +47,14 @@ public class TeamsServiceImplTest {
         assertEquals(2, teamDtos.size());
         assertEquals("Team 1", teamDtos.get(0).getName());
         assertEquals("Team 2", teamDtos.get(1).getName());
-//        assertEquals("http://localhost/teams/" + teams.get(0).getId(), teamDtos.get(0).getLink(Link.REL_SELF).get().getHref());
-        assertTrue(teamDtos.get(0).toString().contains("links: [</v1/teams/" + teamDtos.get(0).getId() + ">;rel=\"self\"]"));
+        // assertEquals("http://localhost/teams/" + teams.get(0).getId(),
+        // teamDtos.get(0).getLink(Link.REL_SELF).get().getHref());
+        assertTrue(teamDtos.get(0).toString()
+                .contains("links: [</v1/teams/" + teamDtos.get(0).getId() + ">;rel=\"self\"]"));
     }
 
     @Test
-    public void testFindById() {
+    void testFindById() {
         UUID teamId = UUID.randomUUID();
         Team team = new Team(teamId, "Team 1", UUID.randomUUID());
         when(repository.findById(teamId)).thenReturn(Optional.of(team));
@@ -61,11 +63,11 @@ public class TeamsServiceImplTest {
 
         assertEquals("Team 1", teamDto.getName());
         assertTrue(teamDto.toString().contains("links: [</v1/teams/" + teamDto.getId() + ">;rel=\"self\"]"));
-//        assertEquals("http://localhost/teams/" + teamId, teamDto.getLink(Link.REL_SELF).get().getHref());
+        // assertEquals("http://localhost/teams/" + teamId, teamDto.getLink(Link.REL_SELF).get().getHref());
     }
 
     @Test
-    public void testCreate() {
+    void testCreate() {
         UUID teamId = UUID.randomUUID();
         TeamDto teamDto = new TeamDto(teamId, "Team 1", UUID.randomUUID());
         Team team = teamDto.toModel();
@@ -74,12 +76,13 @@ public class TeamsServiceImplTest {
         TeamDto createdTeamDto = service.create(teamDto);
 
         assertEquals("Team 1", createdTeamDto.getName());
-        assertTrue(createdTeamDto.toString().contains("links: [</v1/teams/" + createdTeamDto.getId() + ">;rel=\"self\"]"));
+        assertTrue(createdTeamDto.toString()
+                .contains("links: [</v1/teams/" + createdTeamDto.getId() + ">;rel=\"self\"]"));
 
     }
 
     @Test
-    public void testUpdate() {
+    void testUpdate() {
         UUID teamId = UUID.randomUUID();
         TeamDto teamDto = new TeamDto(teamId, "Team 1", UUID.randomUUID());
         Team team = teamDto.toModel();
@@ -89,17 +92,7 @@ public class TeamsServiceImplTest {
         TeamDto updatedTeamDto = service.update(teamDto);
 
         assertEquals("Team 1", updatedTeamDto.getName());
-        assertTrue(updatedTeamDto.toString().contains("links: [</v1/teams/" + updatedTeamDto.getId() + ">;rel=\"self\"]"));
-    }
-
-    @Test
-    void testDelete() {
-        UUID teamId = UUID.randomUUID();
-        Team team = new Team(teamId, "Team 1", UUID.randomUUID());
-
-        when(repository.findById(teamId)).thenReturn(Optional.of(team));
-
-        service.delete(teamId);
+        assertTrue(updatedTeamDto.toString()
+                .contains("links: [</v1/teams/" + updatedTeamDto.getId() + ">;rel=\"self\"]"));
     }
 }
-

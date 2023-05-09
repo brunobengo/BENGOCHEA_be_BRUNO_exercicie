@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-public class DozerConverterTest {
-    
+class DozerConverterTest {
+
     MockUser inputObject;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         inputObject = new MockUser();
     }
 
     @Test
-    public void parseEntityToVOTest() {
+    void parseEntityToVOTest() {
         UserDto output = UserDto.fromModel(inputObject.mockEntity());
-//        assertEquals(Long.valueOf(0L), output.getId());
+        // assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
         assertEquals("Display Name Test0", output.getDisplayName());
@@ -31,19 +31,19 @@ public class DozerConverterTest {
     }
 
     @Test
-    public void parseEntityListToVOListTest() {
+    void parseEntityListToVOListTest() {
         List<UserDto> outputList = new ArrayList<>();
         var users = inputObject.mockEntityList();
         users.forEach(u -> outputList.add(UserDto.fromModel(u)));
         UserDto outputZero = outputList.get(0);
-        
-//        assertEquals(Long.valueOf(0L), outputZero.getId());
+
+        // assertEquals(Long.valueOf(0L), outputZero.getId());
         assertEquals("First Name Test0", outputZero.getFirstName());
         assertEquals("Last Name Test0", outputZero.getLastName());
         assertEquals("Display Name Test0", outputZero.getDisplayName());
         assertEquals("Avatar Url0", outputZero.getAvatarUrl());
         assertEquals("Location0", outputZero.getLocation());
-        
+
         UserDto outputSeven = outputList.get(7);
 
         assertEquals("First Name Test7", outputSeven.getFirstName());
@@ -51,7 +51,7 @@ public class DozerConverterTest {
         assertEquals("Display Name Test7", outputSeven.getDisplayName());
         assertEquals("Avatar Url7", outputSeven.getAvatarUrl());
         assertEquals("Location7", outputSeven.getLocation());;
-        
+
         UserDto outputTwelve = outputList.get(12);
 
         assertEquals("First Name Test12", outputTwelve.getFirstName());
@@ -62,9 +62,9 @@ public class DozerConverterTest {
     }
 
     @Test
-    public void parseVOToEntityTest() {
+    void parseVOToEntityTest() {
         User output = inputObject.mockVO().toModel();
-//        assertEquals(Long.valueOf(0L), output.getId());
+        // assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
         assertEquals("Display Name Test0", output.getDisplayName());
@@ -73,7 +73,7 @@ public class DozerConverterTest {
     }
 
     @Test
-    public void parserVOListToEntityListTest() {
+    void parserVOListToEntityListTest() {
         List<User> outputList = new ArrayList<>();
         var userDto = inputObject.mockVOList();
         userDto.forEach(u -> outputList.add(u.toModel()));
@@ -85,7 +85,7 @@ public class DozerConverterTest {
         assertEquals("Display Name Test0", outputZero.getDisplayName());
         assertEquals("Avatar Url0", outputZero.getAvatarUrl());
         assertEquals("Location0", outputZero.getLocation());;
-        
+
         User outputSeven = outputList.get(7);
 
         assertEquals("First Name Test7", outputSeven.getFirstName());
@@ -93,7 +93,7 @@ public class DozerConverterTest {
         assertEquals("Display Name Test7", outputSeven.getDisplayName());
         assertEquals("Avatar Url7", outputSeven.getAvatarUrl());
         assertEquals("Location7", outputSeven.getLocation());;
-        
+
         User outputTwelve = outputList.get(12);
 
         assertEquals("First Name Test12", outputTwelve.getFirstName());

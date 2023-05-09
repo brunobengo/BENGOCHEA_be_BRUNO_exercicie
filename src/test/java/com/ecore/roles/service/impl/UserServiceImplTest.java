@@ -18,14 +18,13 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ecore.roles.repository.UserRepository;
-import com.ecore.roles.service.impl.UsersServiceImpl;
 import com.ecore.roles.unittests.mapper.mocks.*;
 
 import java.util.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-public class UserServiceImplTest {
+class UserServiceImplTest {
 
     MockUser input;
 
@@ -36,7 +35,7 @@ public class UserServiceImplTest {
     UserRepository repository;
 
     @BeforeEach
-    void setUpMocks() throws Exception{
+    void setUpMocks() throws Exception {
         input = new MockUser();
         MockitoAnnotations.openMocks(this);
     }
@@ -59,7 +58,8 @@ public class UserServiceImplTest {
         assertNotNull(personOne.getKey());
         assertNotNull(personOne.getLinks());
 
-        assertTrue(personOne.toString().contains("links: [</v1/users/" + personOne.getKey() + ">;rel=\"self\"]"));
+        assertTrue(personOne.toString()
+                .contains("links: [</v1/users/" + personOne.getKey() + ">;rel=\"self\"]"));
         assertEquals("First Name Test0", personOne.getFirstName());
         assertEquals("Last Name Test0", personOne.getLastName());
         assertEquals("Display Name Test0", personOne.getDisplayName());
@@ -88,7 +88,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void testSave(){
+    void testSave() {
         UUID userId = UUID.randomUUID();
         UserDto userDto = input.mockVO(userId);
         User user = userDto.toModel();
@@ -101,11 +101,12 @@ public class UserServiceImplTest {
         assertEquals("Display Name Test", createdUserDto.getDisplayName());
         assertEquals("Avatar Url", createdUserDto.getAvatarUrl());
         assertEquals("Location", createdUserDto.getLocation());
-        assertTrue(createdUserDto.toString().contains("links: [</v1/users/" + createdUserDto.getKey() + ">;rel=\"self\"]"));
+        assertTrue(createdUserDto.toString()
+                .contains("links: [</v1/users/" + createdUserDto.getKey() + ">;rel=\"self\"]"));
     }
 
     @Test
-    void testUpdate(){
+    void testUpdate() {
         UUID uuid = UUID.randomUUID();
 
         User entity = input.mockEntity(uuid);
@@ -131,21 +132,11 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void testDelete() {
-        UUID uuid = UUID.randomUUID();
-        User entity = input.mockEntity(uuid);
-
-        when(repository.findById(uuid)).thenReturn(Optional.of(entity));
-
-        service.delete(uuid);
-    }
-
-    @Test
-    void testSaveWithNullPerson(){
+    void testSaveWithNullPerson() {
         Exception exception = assertThrows(RequiredObjectsNullException.class,
-        () -> {
-            service.save(null);
-        });
+                () -> {
+                    service.save(null);
+                });
         String expectedMessage = "It`s not allowed to persist a null object!";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
@@ -153,7 +144,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void testUpdateWithNullPerson(){
+    void testUpdateWithNullPerson() {
         Exception exception = assertThrows(RequiredObjectsNullException.class,
                 () -> {
                     service.update(null);
@@ -163,7 +154,5 @@ public class UserServiceImplTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
     }
-
-
 
 }

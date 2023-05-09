@@ -35,4 +35,10 @@ public class User {
 
     @Column(name = "location", nullable = false, length = 100)
     private String location;
+
+
+    public User(UUID id, String firstName) {
+        this.id = id;
+        this.firstName = firstName;
+    }
 }

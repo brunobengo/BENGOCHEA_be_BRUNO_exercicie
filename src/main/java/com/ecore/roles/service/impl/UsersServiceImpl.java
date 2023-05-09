@@ -16,47 +16,49 @@ import java.util.*;
 import java.util.logging.*;
 
 @Service
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 
     private Logger logger = Logger.getLogger(UsersServiceImpl.class.getName());
 
     @Autowired
     private UserRepository repository;
 
-
-//    public UsersServiceImpl(UserRepository repository) {
-//        this.repository = repository;
-//    }
-
     @Override
-    public List<UserDto> findAll(){
+    public List<UserDto> findAll() {
         logger.info("Finding all Users!");
         var users = repository.findAll();
         List<UserDto> listUsers = new ArrayList<>();
         users.forEach(u -> listUsers.add(UserDto.fromModel(u)));
-        listUsers.stream().forEach(u -> u.add(linkTo(methodOn(UsersRestController.class).findById(u.getKey())).withSelfRel()));
+        listUsers.stream().forEach(
+                u -> u.add(linkTo(methodOn(UsersRestController.class).findById(u.getKey())).withSelfRel()));
         return listUsers;
     }
+
     @Override
-    public UserDto findById(UUID id){
-        logger.info("Finding by id " + id);
+    public UserDto findById(UUID id) {
+        String info = "Finding by id " + id;
+        logger.info(info);
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(User.class, id));
         UserDto userDto = UserDto.fromModel(user);
         userDto.add(linkTo(methodOn(UsersRestController.class).findById(id)).withSelfRel());
         return userDto;
     }
+
     @Override
-    public UserDto save(UserDto userDto){
-        if(userDto == null) throw new RequiredObjectsNullException();
+    public UserDto save(UserDto userDto) {
+        if (userDto == null)
+            throw new RequiredObjectsNullException();
         logger.info("Creating a new User!");
         var result = UserDto.fromModel(repository.save(userDto.toModel()));
         result.add(linkTo(methodOn(UsersRestController.class).findById(result.getKey())).withSelfRel());
         return result;
     }
+
     @Override
-    public UserDto update(UserDto dto){
-        if(dto == null) throw new RequiredObjectsNullException();
+    public UserDto update(UserDto dto) {
+        if (dto == null)
+            throw new RequiredObjectsNullException();
         logger.info("Updating a User!");
         User user = repository.findById(dto.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException(User.class, dto.getKey()));
@@ -69,8 +71,9 @@ public class UsersServiceImpl implements UsersService{
         userDto.add(linkTo(methodOn(UsersRestController.class).findById(userDto.getKey())).withSelfRel());
         return userDto;
     }
+
     @Override
-    public void delete (UUID id){
+    public void delete(UUID id) {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(User.class, id));
         repository.delete(user);

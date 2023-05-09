@@ -7,7 +7,6 @@ import java.util.*;
 
 public class MockUser {
 
-
     public static User mockEntity() {
         return mockEntity(0);
     }
@@ -42,6 +41,7 @@ public class MockUser {
         user.setLocation("Location" + number);
         return user;
     }
+
     public static User mockEntity(UUID uuid) {
         User user = new User();
         user.setId(uuid);
@@ -75,4 +75,3 @@ public class MockUser {
     }
 
 }
-

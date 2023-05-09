@@ -11,24 +11,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.*;
-import java.util.stream.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class TeamsServiceImpl implements TeamsService {
-
-//    private final TeamsClient teamsClient;
-
-    private final TeamRepository repository;
+        private final TeamRepository repository;
 
     private Logger logger = Logger.getLogger(TeamsServiceImpl.class.getName());
 
     @Autowired
     public TeamsServiceImpl(TeamRepository repository) {
         this.repository = repository;
-//        this.teamsClient = teamsClient;
     }
 
     @Override
@@ -36,13 +31,15 @@ public class TeamsServiceImpl implements TeamsService {
         List<Team> teams = repository.findAll();
         List<TeamDto> teamDtos = new ArrayList<>();
         teams.forEach(t -> teamDtos.add(TeamDto.fromModel(t)));
-        teamDtos.stream().forEach(t -> t.add(linkTo(methodOn(TeamsRestController.class).findById(t.getId())).withSelfRel()));
+        teamDtos.stream().forEach(
+                t -> t.add(linkTo(methodOn(TeamsRestController.class).findById(t.getId())).withSelfRel()));
         return teamDtos;
     }
 
     @Override
     public TeamDto findById(UUID teamId) {
-        logger.info("Finding team by id " + teamId);
+        String info = "Finding team by id " + teamId;
+        logger.info(info);
         Team team = repository.findById(teamId)
                 .orElseThrow(() -> new ResourceNotFoundException(Team.class, teamId));
         TeamDto teamDto = TeamDto.fromModel(team);
@@ -60,7 +57,8 @@ public class TeamsServiceImpl implements TeamsService {
 
     @Override
     public TeamDto update(TeamDto teamDto) {
-        if(teamDto == null) throw new RequiredObjectsNullException();
+        if (teamDto == null)
+            throw new RequiredObjectsNullException();
         logger.info("Updating a Team!");
         Team team = repository.findById(teamDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(Team.class, teamDto.getId()));
@@ -73,7 +71,8 @@ public class TeamsServiceImpl implements TeamsService {
 
     @Override
     public void delete(UUID teamId) {
-        logger.info("Deleting team with id " + teamId);
+        String info = "Deleting team with id " + teamId;
+        logger.info(info);
         Team team = repository.findById(teamId)
                 .orElseThrow(() -> new ResourceNotFoundException(Team.class, teamId));
         repository.delete(team);
