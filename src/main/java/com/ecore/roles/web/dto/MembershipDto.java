@@ -1,20 +1,17 @@
 package com.ecore.roles.web.dto;
 
-import com.ecore.roles.model.Membership;
-import com.ecore.roles.model.Role;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ecore.roles.model.*;
+import com.fasterxml.jackson.annotation.*;
+import com.github.dozermapper.core.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
-
-import static java.util.Optional.ofNullable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,47 +19,39 @@ import static java.util.Optional.ofNullable;
 @Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class MembershipDto {
+@JsonPropertyOrder({"roleId", "userId", "teamId"})
+public class MembershipDto extends RepresentationModel<MembershipDto> {
 
-    @JsonProperty
-    private UUID id;
+    @JsonProperty("id")
+    @Mapping("id")
+    private UUID key;
 
-    @JsonProperty
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
-    private UUID roleId;
+    // @JsonProperty
+    private Role role;
 
-    @JsonProperty(value = "teamMemberId")
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
-    private UUID userId;
+    private User user;
 
-    @JsonProperty
-    @Valid
-    @NotNull
-    @EqualsAndHashCode.Include
-    private UUID teamId;
+    // @JsonProperty
+    private Team team;
 
     public static MembershipDto fromModel(Membership membership) {
         if (membership == null) {
             return null;
         }
         return MembershipDto.builder()
-                .id(membership.getId())
-                .roleId(ofNullable(membership.getRole()).map(Role::getId).orElse(null))
-                .userId(membership.getUserId())
-                .teamId(membership.getTeamId())
+                .key(membership.getId())
+                .role(membership.getRole())
+                .user(membership.getUser())
+                .team(membership.getTeam())
                 .build();
     }
 
     public Membership toModel() {
         return Membership.builder()
-                .id(this.id)
-                .role(Role.builder().id(this.roleId).build())
-                .userId(this.userId)
-                .teamId(this.teamId)
+                .id(this.key)
+                .role(this.role)
+                .user(this.user)
+                .team(this.team)
                 .build();
     }
 

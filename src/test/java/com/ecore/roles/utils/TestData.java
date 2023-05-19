@@ -2,11 +2,14 @@ package com.ecore.roles.utils;
 
 import com.ecore.roles.client.model.Team;
 import com.ecore.roles.client.model.User;
+import com.ecore.roles.exception.*;
 import com.ecore.roles.model.Membership;
 import com.ecore.roles.model.Role;
+import com.ecore.roles.unittests.mapper.mocks.*;
+import com.ecore.roles.web.dto.*;
 import org.assertj.core.util.Lists;
 
-import java.util.UUID;
+import java.util.*;
 
 public class TestData {
 
@@ -15,7 +18,7 @@ public class TestData {
     public static final UUID UUID_3 = UUID.fromString("33333333-3333-3333-3333-333333333333");
     public static final UUID UUID_4 = UUID.fromString("44444444-4444-4444-4444-444444444444");
 
-    public static final UUID DEVELOPER_ROLE_UUID = UUID.fromString("1b3c333b-36e7-4b64-aa15-c22ed5908ce4");
+    public static final UUID DEVELOPER_ROLE_UUID = UUID.fromString("cb8b6322-d396-49ba-9fe9-3641c3ef9130");
     public static final UUID PRODUCT_OWNER_UUID = UUID.fromString("25bbb7d2-26f3-11ec-9621-0242ac130002");
     public static final UUID TESTER_ROLE_UUID = UUID.fromString("37969e22-26f3-11ec-9621-0242ac130002");
 
@@ -85,18 +88,18 @@ public class TestData {
     public static Membership DEFAULT_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .role(DEVELOPER_ROLE())
-                .userId(GIANNI_USER_UUID)
-                .teamId(ORDINARY_CORAL_LYNX_TEAM_UUID)
+                .role(MockRole.mockEntity())
+                .user(MockUser.mockEntity())
+                .team(MockTeam.mockEntity())
                 .build();
     }
 
     public static Membership INVALID_MEMBERSHIP() {
         return Membership.builder()
                 .id(DEFAULT_MEMBERSHIP_UUID)
-                .role(DEVELOPER_ROLE())
-                .userId(UUID_4)
-                .teamId(ORDINARY_CORAL_LYNX_TEAM_UUID)
+                .role(MockRole.mockEntity())
+                .user(MockUser.mockEntity(UUID_4))
+                .team(MockTeam.mockEntity())
                 .build();
     }
 

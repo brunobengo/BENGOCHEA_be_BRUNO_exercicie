@@ -1,17 +1,11 @@
 package com.ecore.roles.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.UUID;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +13,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @Entity
-public class Role {
+public class Team {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -29,5 +23,9 @@ public class Role {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @Type(type = "uuid-char")
+    @Column(nullable = false, unique = true)
+    private UUID teamLeadId;
 
 }

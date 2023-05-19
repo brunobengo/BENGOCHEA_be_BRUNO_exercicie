@@ -12,12 +12,10 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"team_id", "user_id"}))
 public class Membership {
 
     @Id
@@ -26,14 +24,23 @@ public class Membership {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "team_id", nullable = false)
-    private UUID teamId;
+    @ManyToOne
+    @JoinColumn(name="team_id", nullable=false)
+    private Team team;
+
+    public Membership(UUID id, Role role, User user, Team team){
+        this.setId(id);
+        this.setRole(role);
+        this.setUser(user);
+        this.setTeam(team);
+    }
 
 }

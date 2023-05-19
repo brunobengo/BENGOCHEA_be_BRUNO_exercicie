@@ -1,183 +1,473 @@
 {
 	"info": {
-		"_postman_id": "76155277-5597-48a4-8f3e-4df0740f3842",
+		"_postman_id": "ff725b7f-ad32-415c-88e9-91d93b950946",
 		"name": "backend-challenge",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12723032"
 	},
 	"item": [
 		{
 			"name": "v1",
 			"item": [
 				{
-					"name": "/roles",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"DevOps\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Users",
+					"item": [
+						{
+							"name": "Find all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"users"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/v1/roles",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/roles",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/roles",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/role/search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/roles/search?teamMemberId=fd282131-d8aa-4819-b0c8-d9e0bfb1b75c&teamId=7676a4bf-adfe-415c-941b-1739af07039b",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles",
-								"search"
-							],
-							"query": [
-								{
-									"key": "teamMemberId",
-									"value": "fd282131-d8aa-4819-b0c8-d9e0bfb1b75c"
+						{
+							"name": "Find by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/users/1b3c333b-36e7-4b64-aa15-c22ed5908ce5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"users",
+										"1b3c333b-36e7-4b64-aa15-c22ed5908ce5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"firstName\": \"Gabriel\",\n  \"lastName\": \"Pensador\",\n  \"displayName\": \"pensador\",\n  \"avatarUrl\": \"https://cdn-icons-png.flaticon.com/512/5987/5987462.png\",\n  \"location\": \"Rio de Janeiro - SP\"\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "teamId",
-									"value": "7676a4bf-adfe-415c-941b-1739af07039b"
+								"url": {
+									"raw": "http://localhost:8080/v1/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"users"
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/role/{roleId}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/roles/1b3c333b-36e7-4b64-aa15-c22ed5908ce4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles",
-								"1b3c333b-36e7-4b64-aa15-c22ed5908ce4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/roles/memberships",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"roleId\": \"1b3c333b-36e7-4b64-aa15-c22ed5908ce4\",\n    \"teamMemberId\": \"fd282131-d8aa-4819-b0c8-d9e0bfb1b75c\",\n    \"teamId\": \"7676a4bf-adfe-415c-941b-1739af07039b\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/v1/roles/memberships",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles",
-								"memberships"
-							]
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"id\": \"1b3c333b-36e7-4b64-aa15-c22ed5908ce6\",\n        \"firstName\": \"Fausto\",\n        \"lastName\": \"Silva Silva Silva\",\n        \"displayName\": \"fausto\",\n        \"avatarUrl\": \"https://cdn-icons-png.flaticon.com/512/5987/5987462.png\",\n        \"location\": \"São Paulo - SP\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"964f8e8f-96ca-4729-9529-6bb9aea3facd\",\n    \"firstName\": \"Bruno\",\n    \"lastName\": \"Bengochea\",\n    \"displayName\": \"brunobengo\",\n    \"avatarUrl\": \"https://cdn-icons-png.flaticon.com/512/5987/5987462.png\",\n    \"location\": \"Rio Grande - RS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/users/1b3c333b-36e7-4b64-aa15-c22ed5908cb4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"users",
+										"1b3c333b-36e7-4b64-aa15-c22ed5908cb4"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "/roles/memberships/search",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Membership",
+					"item": [
+						{
+							"name": "Find all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/roles/memberships",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles",
+										"memberships"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/roles/memberships/search?roleId=1b3c333b-36e7-4b64-aa15-c22ed5908ce4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"roles",
-								"memberships",
-								"search"
-							],
-							"query": [
-								{
-									"key": "roleId",
-									"value": "1b3c333b-36e7-4b64-aa15-c22ed5908ce4"
-								}
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Teams",
+					"item": [
+						{
+							"name": "Find all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/teams",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/teams/1b3c333b-36e7-4b64-aa15-c22ed5908ca4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"teams",
+										"1b3c333b-36e7-4b64-aa15-c22ed5908ca4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Second Team\",\n  \"teamLeadId\": \"3f0d902f-d63a-4de1-a828-52d54a674968\"\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/teams",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"id\": \"1b3c333b-36e7-4b64-aa15-c22ed5908ca4\",\n        \"name\": \"First Team\",\n        \"teamLeadId\": \"964f8e8f-96ca-4729-9529-6bb9aea3facd\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/teams",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"964f8e8f-96ca-4729-9529-6bb9aea3facd\",\n    \"firstName\": \"Bruno\",\n    \"lastName\": \"Bengochea\",\n    \"displayName\": \"brunobengo\",\n    \"avatarUrl\": \"https://cdn-icons-png.flaticon.com/512/5987/5987462.png\",\n    \"location\": \"Rio Grande - RS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/teams/dc34acda-a468-4c3f-93c1-be67073a2849",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"teams",
+										"dc34acda-a468-4c3f-93c1-be67073a2849"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"DevOps\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Roles With Parameters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/roles/find?teamId=1b3c333b-36e7-4b64-aa15-c22ed5908ca4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles",
+										"find"
+									],
+									"query": [
+										{
+											"key": "teamId",
+											"value": "1b3c333b-36e7-4b64-aa15-c22ed5908ca4"
+										},
+										{
+											"key": "userId",
+											"value": "1b3c333b-36e7-4b64-aa15-c22ed5908ce5",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"25bbb7d2-26f3-11ec-9621-0242ac130002\",\n    \"name\": \"Teste 3\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"964f8e8f-96ca-4729-9529-6bb9aea3facd\",\n    \"firstName\": \"Bruno\",\n    \"lastName\": \"Bengochea\",\n    \"displayName\": \"brunobengo\",\n    \"avatarUrl\": \"https://cdn-icons-png.flaticon.com/512/5987/5987462.png\",\n    \"location\": \"Rio Grande - RS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/roles/dc34acda-a468-4c3f-93c1-be67073a2849",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles",
+										"dc34acda-a468-4c3f-93c1-be67073a2849"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/roles/1b3c333b-36e7-4b64-aa15-c22ed5908ca4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"roles",
+										"1b3c333b-36e7-4b64-aa15-c22ed5908ca4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
